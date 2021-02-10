@@ -1,0 +1,99 @@
+﻿@model IEnumerable<ProductManagement.Entities.Models.CartModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<div class="OrderSuccessResult container" style="display: none;margin-top:7px; margin-bottom:7px">
+    Order Placed successfully.
+</div>
+<div class="CartSuccessResult container" style="display: none;margin-top:7px; margin-bottom:7px">
+    Cart item deleted successfully.
+</div>
+<div class="CartFailureResult container" style="display: none;margin-top:7px; margin-bottom:7px">
+    Cart item failed to delete.
+</div>
+
+<div class="OrderFailureResult container" style="display: none;margin-top:7px; margin-bottom:7px">
+    Failed to Place Order.
+</div>
+<table class="table" id="Carttablebody">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="Id_@item.ProductId">
+                @Html.HiddenFor(modelItem => item.ProductId)
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                @if (@item.ImageUrl != null)
+                {
+                    <td>
+                        <img src="~/images/@item.ImageUrl" title="@item.ImageUrl" width="80" height="80" />
+                    </td>
+                }
+                <td id="SalePrice_@item.ProductId">
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <span id="tokenId_@item.ProductId">
+                        @Html.AntiForgeryToken()
+                    </span>
+                    <a id="@item.ProductId" action="@Url.Action("RemoveItemFromCart","Cart")" data-pmrci-ajax="true" method="delete" class="btn btn-primary" style="color:white">Remove Item</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+                Total no. of products= <span id="spantotalproducts">@ViewBag.TotalProducts</span>
+            </th>
+            <th>
+                Total Price =<span id="spantotalprice">@ViewBag.TotalPrice</span>
+            </th>
+        </tr>
+    </thead>
+</table>
+<a id="gotohome" asp-action="Index" asp-controller="Home" class="btn btn-primary" style="margin-right:5px">Go to Home</a>
+<span id="tokenId_PlacedOrder">
+    @Html.AntiForgeryToken()
+</span>
+<a id="PlaceOrder" action="@Url.Action("PlaceOrder","Orders")" data-pmco-ajax="true" method="post" class="btn btn-primary" style="color:white">Place Order</a>
+<div id="HomeAndOrder" style="display:none">
+    <a asp-action="Index" asp-controller="Home" class="btn btn-primary" style="margin-right:5px">Home Page</a>
+    <a asp-action="Index" asp-controller="Orders" class="btn btn-primary" style="margin-right:5px">View Placed Orders</a>
+</div>
+
+

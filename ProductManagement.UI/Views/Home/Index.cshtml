@@ -1,0 +1,29 @@
+﻿@model IEnumerable<ProductManagement.Entities.Models.ProductsModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<form action="Home/Search">
+    <input type="search" placeholder="Search.." name="Search" data-pm-search="@Url.Action("Search")" style="width:88%" />
+    <button type="submit"><i class="fa fa-search"></i>Search</button>
+</form>
+<div class="SuccessResult container" style="display: none;margin-top:7px; margin-bottom:7px">
+    Product Deleted successfully.
+</div>
+<div class="CartSuccessResult container" style="display: none;margin-top:7px; margin-bottom:7px">
+    Product added to Cart successfully.
+</div>
+<div class="FailedResult container" style="display: none;margin-top:7px; margin-bottom:7px">
+    Product failed to Delete.
+</div>
+<div class="CartFailedResult container" style="display: none;margin-top:7px; margin-bottom:7px">
+    Product failed to Add.
+</div>
+<hr />
+@if (User.IsInRole("Admin"))
+{
+    <div style="margin-top: 7px; margin-bottom: 7px">
+        <a asp-action="AddProducts" class="btn btn-primary">Add Products</a>
+    </div>
+}
+<partial name="_IndexProductsPartial" />

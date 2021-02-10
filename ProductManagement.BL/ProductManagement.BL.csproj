@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProductManagement.DAL\ProductManagement.DAL.csproj" />
+    <ProjectReference Include="..\ProductManagement.Entities\ProductManagement.Entities.csproj" />
+    <ProjectReference Include="..\ProductManagement.Interfaces\ProductManagement.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>

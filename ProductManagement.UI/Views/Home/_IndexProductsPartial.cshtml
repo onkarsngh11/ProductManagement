@@ -1,0 +1,83 @@
+﻿@model IEnumerable<ProductManagement.Entities.Models.ProductsModel>
+
+<div id="tablebody">
+    @if (Model != null)
+    {
+        if (Model.Count() != 0)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Price)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Image)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr id="Id_@item.ProductId">
+                            @Html.HiddenFor(modelItem => item.ProductId)
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            @Html.HiddenFor(modelItem => item.SalePrice)
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SalePrice)
+                            </td>
+                            @if (@item.ImageUrl != null)
+                            {
+                                <td>
+                                    <img src="~/images/@item.ImageUrl" title="@item.ImageUrl" width="80" height="80" />
+                                </td>
+                            }
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <td>
+                                    <a asp-action="UpdateProduct" asp-route-id="@item.ProductId" class="btn btn-primary" style="margin-right:5px">Update</a>
+                                    <span id="ProducttokenId_@item.ProductId">
+                                        @Html.AntiForgeryToken()
+                                    </span>
+                                    <a action="@Url.Action("DeleteProduct")" id="@item.ProductId" data-pm-ajax="true" method="delete" data-pm-target="#tablebody" class="btn btn-primary" style="color:white">Delete</a>
+                                </td>
+                                <td>
+                                    <span id="CarttokenId_@item.ProductId">
+                                        @Html.AntiForgeryToken()
+                                    </span>
+                                    <a action="@Url.Action("AddToCart", "Cart")" id="@item.ProductId" data-pmc-ajax="true" method="post" class="btn btn-primary" style="color:white">Add to Cart</a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <span id="CarttokenId_@item.ProductId">
+                                        @Html.AntiForgeryToken()
+                                    </span>
+                                    <a action="@Url.Action("AddToCart", "Cart")" id="@item.ProductId" data-pmc-ajax="true" method="post" class="btn btn-primary" style="color:white">Add to Cart</a>
+                                </td>
+                            }
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No Products present currently. Please check later.</p>
+        }
+    }
+</div>

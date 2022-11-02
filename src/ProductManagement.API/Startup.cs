@@ -9,7 +9,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using ProductManagement.BL.ServiceConfigurations;
 using ProductManagement.DAL;
-using System;
 using System.Security.Claims;
 using System.Text;
 
@@ -27,7 +26,8 @@ namespace ProductManagement.API
         {
             services.AddControllers();
             services.AddInternalServices();
-            services.AddDbContext<ProductManagementDbContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("ProductManagementDbCS")));
+            services.AddDbContext<ProductManagementDbContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("ProductManagementDbCS"),
+                x => x.MigrationsAssembly("ProductManagement.API")));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
                     {

@@ -2,7 +2,6 @@
 using ProductManagement.Entities;
 using ProductManagement.Entities.Models;
 using ProductManagement.Interfaces;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -26,7 +25,6 @@ namespace ProductManagement.DAL
         {
             User user = new User
             {
-                UserId = Guid.NewGuid(),
                 Email = registerModel.Email,
                 UserRole = "Admin",
                 UserName = registerModel.UserName,

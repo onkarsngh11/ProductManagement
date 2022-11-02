@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProductManagement.Entities;
 using ProductManagement.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;

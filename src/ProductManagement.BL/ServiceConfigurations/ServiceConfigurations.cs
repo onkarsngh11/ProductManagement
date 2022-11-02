@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using ProductManagement.BL;
+﻿using Microsoft.Extensions.DependencyInjection;
 using ProductManagement.DAL;
 using ProductManagement.Interfaces;
 

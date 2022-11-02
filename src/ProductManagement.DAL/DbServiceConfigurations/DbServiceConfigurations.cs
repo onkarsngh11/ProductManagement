@@ -12,8 +12,7 @@ namespace ProductManagement.DAL
             configuration.AddScoped<ICartDbOps, CartDbOps>();
             configuration.AddScoped<IOrderDbOps, OrdersDbOps>();
             configuration.AddScoped<IAuthDbOps, AuthDbOps>();
-            ProductManagementDbContext ProductDbContext = new ProductManagementDbContext();
-            ProductDbContext.Database.Migrate();
+
             return configuration;
         }
     }

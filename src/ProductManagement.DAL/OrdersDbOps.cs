@@ -12,9 +12,14 @@ namespace ProductManagement.DAL
 {
     public class OrdersDbOps : IOrderDbOps
     {
+        private readonly ProductManagementDbContext context;
+
+        public OrdersDbOps(ProductManagementDbContext dbContext)
+        {
+            context = dbContext;
+        }
         public async Task<IEnumerable<OrdersModel>> GetListOfOrders(int userId)
         {
-            using ProductManagementDbContext context = new ProductManagementDbContext();
             OrdersModel ordersModel = new OrdersModel();
             List<OrdersModel> ListofAllProducts = await (from orders in context.Orders
                                                          where orders.UserId == userId
@@ -32,7 +37,6 @@ namespace ProductManagement.DAL
 
         public async Task<int> PlaceOrders(PlaceOrderModel placeOrder)
         {
-            using ProductManagementDbContext context = new ProductManagementDbContext();
             string ids = string.Empty;
             foreach (string Id in placeOrder.IDs)
             {

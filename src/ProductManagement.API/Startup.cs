@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using ProductManagement.BL.ServiceConfigurations;
+using ProductManagement.DAL;
 using System;
 using System.Security.Claims;
 using System.Text;
@@ -25,6 +27,7 @@ namespace ProductManagement.API
         {
             services.AddControllers();
             services.AddInternalServices();
+            services.AddDbContext<ProductManagementDbContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("ProductManagementDbCS")));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
                     {
@@ -54,7 +57,12 @@ namespace ProductManagement.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddFile("Logs/ProductAPILogs-{Date}.txt", isJson: true);
+            loggerFactory.AddFile("Logs/ProductAPILogs-{Date}.txt", isJson: true); 
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<ProductManagementDbContext>();
+                db.Database.Migrate();
+            }
             if (env.IsDevelopment())
             {
                 app.UseExceptionHandlerMiddleware();

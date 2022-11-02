@@ -11,18 +11,22 @@ namespace ProductManagement.DAL
 {
     public class CartDbOps : ICartDbOps
     {
+        private readonly ProductManagementDbContext _context;
+
+        public CartDbOps(ProductManagementDbContext context)
+        {
+            _context = context;
+        }
         public async Task<int> AddToCart(Cart cart)
         {
-            using ProductManagementDbContext _context = new ProductManagementDbContext();
             _context.Cart.Add(cart);
             return await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<CartModel>> GetItemsinCart()
         {
-            using ProductManagementDbContext context = new ProductManagementDbContext();
-            List<CartModel> ListofAllProducts = await (from pd in context.Products
-                                           join ct in context.Cart on pd.ProductId equals ct.ProductId
+            List<CartModel> ListofAllProducts = await (from pd in _context.Products
+                                           join ct in _context.Cart on pd.ProductId equals ct.ProductId
                                            orderby pd.ProductId
                                            select new CartModel
                                            {
@@ -39,10 +43,9 @@ namespace ProductManagement.DAL
 
         public async Task<int> RemoveItemFromCart(int Id)
         {
-            using ProductManagementDbContext context = new ProductManagementDbContext();
-            Cart cartItemtoremove = await context.Cart.FirstOrDefaultAsync(p => p.ProductId == Id);
-            context.Cart.Remove(cartItemtoremove);
-            return await context.SaveChangesAsync();
+            Cart cartItemtoremove = await _context.Cart.FirstOrDefaultAsync(p => p.ProductId == Id);
+            _context.Cart.Remove(cartItemtoremove);
+            return await _context.SaveChangesAsync();
         }
     }
 }

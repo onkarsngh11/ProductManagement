@@ -1,0 +1,3 @@
+{"@t":"2022-04-14T15:58:54.6334838Z","@m":"Application started. Press Ctrl+C to shut down.","@i":"dcaefe54","SourceContext":"Microsoft.Hosting.Lifetime"}
+{"@t":"2022-04-14T15:58:54.7102705Z","@m":"Hosting environment: \"Development\"","@i":"c3307c92","envName":"Development","SourceContext":"Microsoft.Hosting.Lifetime"}
+{"@t":"2022-04-14T15:58:54.7137660Z","@m":"Content root path: \"D:\\Code repository\\ProductManagement\\ProductManagement.UI\"","@i":"b5d60022","contentRoot":"D:\\Code repository\\ProductManagement\\ProductManagement.UI","SourceContext":"Microsoft.Hosting.Lifetime"}

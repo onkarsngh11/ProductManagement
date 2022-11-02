@@ -1,3 +1,0 @@
-{"@t":"2020-06-22T05:55:07.3513315Z","@m":"Application started. Press Ctrl+C to shut down.","@i":"dcaefe54","SourceContext":"Microsoft.Hosting.Lifetime"}
-{"@t":"2020-06-22T05:55:07.3849600Z","@m":"Hosting environment: \"Development\"","@i":"c3307c92","envName":"Development","SourceContext":"Microsoft.Hosting.Lifetime"}
-{"@t":"2020-06-22T05:55:07.3955849Z","@m":"Content root path: \"C:\\Users\\onkarsingh\\Documents\\Visual Studio 2019\\Projects\\ProductManagement\\ProductManagement\\ProductManagement.API\"","@i":"b5d60022","contentRoot":"C:\\Users\\onkarsingh\\Documents\\Visual Studio 2019\\Projects\\ProductManagement\\ProductManagement\\ProductManagement.API","SourceContext":"Microsoft.Hosting.Lifetime"}
